@@ -74,13 +74,15 @@ void reconnect()
 void collectData()
 {
     bool dht_ok = false;
+    int readCount = 5;
     moisture = freq;
     yield();
 
-    while ( !dht_ok ) {
+    while ( !dht_ok && readCount > 0 ) {
         temperature = dht.readTemperature();
         yield();
         humidity = dht.readHumidity();
+        readCount--;
 
         if ( isnan( temperature ) || isnan( humidity ) ) {
             delay( 1000 );
@@ -90,6 +92,11 @@ void collectData()
     }
 
     yield();
+
+    if ( isnan( temperature ) || isnan( humidity ) ) {
+        temperature = 0;
+        humidity = 0;
+    }
 
     if ( DEBUG ) {
         Serial.println( humidity );
