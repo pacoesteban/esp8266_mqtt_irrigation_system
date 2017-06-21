@@ -1,6 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <DHT.h>
+#include <myNetworks.h>
 
 #define INFO_LED 12
 #define WATER_VALVE 14
@@ -12,9 +13,9 @@
 #define CHECK_INTERVAL 300000
 
 // Connect to the WiFi
-const char *ssid     = "";
-const char *password = "";
-const char *mqtt_server = "";
+const char *ssid     = WIFI_SSID;
+const char *password = WIFI_PASSWD;
+const char *mqtt_server = MQTT_BROKER;
 float temperature = 0;
 int humidity = 0;
 float moisture = 0.0;
