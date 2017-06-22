@@ -62,7 +62,7 @@ U 1 1 580E06C4
 P 5150 3850
 F 0 "C2" H 5175 3950 50  0000 L CNN
 F 1 "100n" H 5175 3750 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 5188 3700 50  0001 C CNN
+F 2 "Capacitors_SMD:C_1206_HandSoldering" H 5188 3700 50  0001 C CNN
 F 3 "" H 5150 3850 50  0000 C CNN
 	1    5150 3850
 	1    0    0    -1  
@@ -150,23 +150,14 @@ $EndComp
 $Comp
 L R R6
 U 1 1 580E0837
-P 6750 3350
-F 0 "R6" V 6830 3350 50  0000 C CNN
-F 1 "10k" V 6750 3350 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 6680 3350 50  0001 C CNN
-F 3 "" H 6750 3350 50  0000 C CNN
-	1    6750 3350
-	0    1    1    0   
+P 6750 3600
+F 0 "R6" V 6830 3600 50  0000 C CNN
+F 1 "10k" V 6750 3600 50  0000 C CNN
+F 2 "Resistors_SMD:R_1206_HandSoldering" V 6680 3600 50  0001 C CNN
+F 3 "" H 6750 3600 50  0000 C CNN
+	1    6750 3600
+	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	6500 3350 6600 3350
-Wire Wire Line
-	6900 3350 7000 3350
-Wire Wire Line
-	7000 3350 7000 3600
-Wire Wire Line
-	7000 3600 6650 3600
-Connection ~ 6650 3600
 Wire Wire Line
 	7050 3150 7050 4650
 Wire Wire Line
@@ -246,22 +237,6 @@ Wire Wire Line
 	6850 3000 6850 2950
 Wire Wire Line
 	6850 2950 6900 2950
-NoConn ~ 6500 2950
-NoConn ~ 6500 3250
-NoConn ~ 5300 3050
-Text GLabel 4650 3300 0    39   Input ~ 0
-MOISTURE_SENSOR
-$Comp
-L MIC39100-3.3WS U1
-U 1 1 580E12F0
-P 3850 1400
-F 0 "U1" H 3850 950 60  0000 C CNN
-F 1 "MIC39100-3.3WS" H 3850 1750 60  0000 C CNN
-F 2 "TO_SOT_Packages_SMD:SOT-223" H 3850 1400 60  0001 C CNN
-F 3 "" H 3850 1400 60  0000 C CNN
-	1    3850 1400
-	1    0    0    -1  
-$EndComp
 $Comp
 L CONN_01X02 P1
 U 1 1 580E13A1
@@ -284,14 +259,6 @@ F 3 "" H 1650 1050 50  0000 C CNN
 	1    1650 1050
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1650 1250 1650 1050
-Connection ~ 1650 1250
-Wire Wire Line
-	4300 1450 4350 1450
-Wire Wire Line
-	4350 1450 4350 1750
-Connection ~ 3850 1750
 $Comp
 L GND #PWR04
 U 1 1 580E1510
@@ -303,49 +270,8 @@ F 3 "" H 2050 1850 50  0000 C CNN
 	1    2050 1850
 	1    0    0    -1  
 $EndComp
-Text GLabel 4800 1250 2    60   Input ~ 0
+Text GLabel 2050 2300 2    60   Input ~ 0
 3.3V
-Wire Wire Line
-	4300 1250 4800 1250
-$Comp
-L C C1
-U 1 1 580E15DF
-P 4650 1500
-F 0 "C1" H 4675 1600 50  0000 L CNN
-F 1 "10uF" H 4675 1400 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:CP_Radial_D5.0mm_P2.50mm" H 4688 1350 50  0001 C CNN
-F 3 "" H 4650 1500 50  0000 C CNN
-	1    4650 1500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4650 1350 4650 1250
-Connection ~ 4650 1250
-Wire Wire Line
-	4650 1750 4650 1650
-Connection ~ 4350 1750
-$Comp
-L LED-RESCUE-esp8266_irrigation_system D2
-U 1 1 580E1A3D
-P 2750 800
-F 0 "D2" H 2750 900 50  0000 C CNN
-F 1 "LED" H 2750 700 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 2750 800 50  0001 C CNN
-F 3 "" H 2750 800 50  0000 C CNN
-	1    2750 800 
-	-1   0    0    1   
-$EndComp
-$Comp
-L R R2
-U 1 1 580E1A94
-P 2250 800
-F 0 "R2" V 2330 800 50  0000 C CNN
-F 1 "1k" V 2250 800 50  0000 C CNN
-F 2 "Resistors_SMD:R_1206_HandSoldering" V 2180 800 50  0001 C CNN
-F 3 "" H 2250 800 50  0000 C CNN
-	1    2250 800 
-	0    1    1    0   
-$EndComp
 $Comp
 L GND #PWR05
 U 1 1 580E1ACD
@@ -357,11 +283,6 @@ F 3 "" H 3250 850 50  0000 C CNN
 	1    3250 850 
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1900 1250 1900 600 
-Wire Wire Line
-	1900 800  2100 800 
-Connection ~ 1900 1250
 Wire Wire Line
 	2400 800  2550 800 
 Wire Wire Line
@@ -422,16 +343,13 @@ F 3 "" H 5850 2350 50  0000 C CNN
 $EndComp
 Text GLabel 2150 600  2    60   Input ~ 0
 12V
-Wire Wire Line
-	1900 600  2150 600 
-Connection ~ 1900 800 
 $Comp
 L IRF540N Q1
 U 1 1 580E2B6F
 P 3450 4550
 F 0 "Q1" H 3700 4625 50  0000 L CNN
 F 1 "IRF540N" H 3700 4550 50  0000 L CNN
-F 2 "Power_Integrations:TO-220" H 3700 4475 50  0000 L CIN
+F 2 "TO_SOT_Packages_SMD:SOT-223-3Lead_TabPin2" H 3700 4475 50  0000 L CIN
 F 3 "" H 3450 4550 50  0000 L CNN
 	1    3450 4550
 	1    0    0    -1  
@@ -531,52 +449,11 @@ $EndComp
 Wire Wire Line
 	1650 1500 1650 1350
 Connection ~ 1650 1350
-Wire Wire Line
-	2550 4600 3250 4600
-$Comp
-L CONN_01X03 J1
-U 1 1 58E76CC5
-P 6750 1750
-F 0 "J1" H 6750 1950 50  0000 C CNN
-F 1 "MOIST_CONN" V 6850 1750 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 6750 1750 50  0001 C CNN
-F 3 "" H 6750 1750 50  0001 C CNN
-	1    6750 1750
-	1    0    0    -1  
-$EndComp
-Text GLabel 6150 1650 0    60   Input ~ 0
-5V
-Text GLabel 6150 1800 0    60   Input ~ 0
-MOISTURE_SENSOR
-Wire Wire Line
-	6150 1650 6550 1650
-Wire Wire Line
-	6550 1750 6250 1750
-Wire Wire Line
-	6250 1750 6250 1800
-Wire Wire Line
-	6250 1800 6150 1800
 $Comp
 L GND #PWR09
-U 1 1 58E7710F
-P 6400 1950
-F 0 "#PWR09" H 6400 1700 50  0001 C CNN
-F 1 "GND" H 6400 1800 50  0000 C CNN
-F 2 "" H 6400 1950 50  0001 C CNN
-F 3 "" H 6400 1950 50  0001 C CNN
-	1    6400 1950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6550 1850 6400 1850
-Wire Wire Line
-	6400 1850 6400 1950
-NoConn ~ 5300 2850
-$Comp
-L GND #PWR010
 U 1 1 58E77A6E
 P 6350 2400
-F 0 "#PWR010" H 6350 2150 50  0001 C CNN
+F 0 "#PWR09" H 6350 2150 50  0001 C CNN
 F 1 "GND" H 6350 2250 50  0000 C CNN
 F 2 "" H 6350 2400 50  0001 C CNN
 F 3 "" H 6350 2400 50  0001 C CNN
@@ -593,12 +470,6 @@ Wire Wire Line
 	5250 2350 5250 2750
 Connection ~ 5250 2750
 Wire Wire Line
-	4650 3300 4850 3300
-Wire Wire Line
-	4850 3300 4850 3350
-Wire Wire Line
-	4850 3350 5300 3350
-Wire Wire Line
 	5150 3250 5300 3250
 Wire Wire Line
 	5150 3150 5300 3150
@@ -606,69 +477,6 @@ Wire Wire Line
 	2050 1350 2050 1850
 Wire Wire Line
 	1600 1350 2050 1350
-Wire Wire Line
-	2050 1750 4650 1750
-$Comp
-L C C4
-U 1 1 58E78576
-P 3300 1500
-F 0 "C4" H 3325 1600 50  0000 L CNN
-F 1 "100n" H 3325 1400 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 3338 1350 50  0001 C CNN
-F 3 "" H 3300 1500 50  0001 C CNN
-	1    3300 1500
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C3
-U 1 1 58E78613
-P 2250 1500
-F 0 "C3" H 2275 1600 50  0000 L CNN
-F 1 "1uF" H 2275 1400 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:CP_Radial_D5.0mm_P2.50mm" H 2288 1350 50  0001 C CNN
-F 3 "" H 2250 1500 50  0001 C CNN
-	1    2250 1500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1600 1250 2400 1250
-Wire Wire Line
-	3200 1250 3400 1250
-Connection ~ 2050 1750
-Wire Wire Line
-	3300 1650 3300 1750
-Connection ~ 3300 1750
-Wire Wire Line
-	2800 1550 2800 1750
-Connection ~ 2800 1750
-Wire Wire Line
-	2250 1650 2250 1750
-Connection ~ 2250 1750
-Wire Wire Line
-	2250 1350 2250 1250
-Connection ~ 2250 1250
-Wire Wire Line
-	3300 1100 3300 1350
-Connection ~ 3300 1250
-Text GLabel 3750 750  2    60   Input ~ 0
-5V
-Wire Wire Line
-	3300 1100 3400 1100
-Wire Wire Line
-	3400 1100 3400 750 
-Wire Wire Line
-	3400 750  3750 750 
-$Comp
-L LM7805CT U3
-U 1 1 58E79DA7
-P 2800 1300
-F 0 "U3" H 2600 1500 50  0000 C CNN
-F 1 "LM7805CT" H 2800 1500 50  0000 L CNN
-F 2 "TO_SOT_Packages_THT:TO-220_Vertical" H 2800 1400 50  0001 C CIN
-F 3 "" H 2800 1300 50  0001 C CNN
-	1    2800 1300
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	8400 2100 8650 2100
 Wire Wire Line
@@ -689,5 +497,215 @@ Wire Wire Line
 	8650 2300 8550 2300
 Wire Wire Line
 	8550 2300 8550 2450
-NoConn ~ 8650 2200
+$Comp
+L LED-RESCUE-esp8266_irrigation_system D2
+U 1 1 580E1A3D
+P 2750 800
+F 0 "D2" H 2750 900 50  0000 C CNN
+F 1 "LED" H 2750 700 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x02_Pitch2.54mm" H 2750 800 50  0001 C CNN
+F 3 "" H 2750 800 50  0000 C CNN
+	1    2750 800 
+	-1   0    0    1   
+$EndComp
+$Comp
+L R R2
+U 1 1 580E1A94
+P 2250 800
+F 0 "R2" V 2330 800 50  0000 C CNN
+F 1 "1k" V 2250 800 50  0000 C CNN
+F 2 "Resistors_SMD:R_1206_HandSoldering" V 2180 800 50  0001 C CNN
+F 3 "" H 2250 800 50  0000 C CNN
+	1    2250 800 
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1600 1250 2050 1250
+Wire Wire Line
+	2050 1250 2050 600 
+Wire Wire Line
+	2050 600  2150 600 
+Wire Wire Line
+	2100 800  2050 800 
+Connection ~ 2050 800 
+Wire Wire Line
+	1650 1050 1650 1250
+Connection ~ 1650 1250
+$Comp
+L CONN_01X02 J1
+U 1 1 594A9297
+P 1400 2250
+F 0 "J1" H 1400 2400 50  0000 C CNN
+F 1 "3V3_POWER" V 1500 2250 50  0000 C CNN
+F 2 "Connect:bornier2" H 1400 2250 50  0001 C CNN
+F 3 "" H 1400 2250 50  0001 C CNN
+	1    1400 2250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1600 2300 2050 2300
+Wire Wire Line
+	1600 2200 1750 2200
+Wire Wire Line
+	1750 2200 1750 1750
+Wire Wire Line
+	1750 1750 2050 1750
+Connection ~ 2050 1750
+$Comp
+L R R8
+U 1 1 594A9669
+P 3050 4950
+F 0 "R8" V 3130 4950 50  0000 C CNN
+F 1 "10k" V 3050 4950 50  0000 C CNN
+F 2 "Resistors_SMD:R_1206_HandSoldering" V 2980 4950 50  0001 C CNN
+F 3 "" H 3050 4950 50  0001 C CNN
+	1    3050 4950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3050 5100 3050 5300
+Wire Wire Line
+	3050 5300 3550 5300
+Connection ~ 3550 5300
+$Comp
+L R R3
+U 1 1 594A9AA2
+P 2850 4600
+F 0 "R3" V 2930 4600 50  0000 C CNN
+F 1 "100R" V 2850 4600 50  0000 C CNN
+F 2 "Resistors_ThroughHole:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 2780 4600 50  0001 C CNN
+F 3 "" H 2850 4600 50  0001 C CNN
+	1    2850 4600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2550 4600 2700 4600
+Wire Wire Line
+	3000 4600 3250 4600
+Wire Wire Line
+	3050 4800 3050 4600
+Connection ~ 3050 4600
+$Comp
+L R R9
+U 1 1 594A9EFB
+P 6850 3300
+F 0 "R9" V 6930 3300 50  0000 C CNN
+F 1 "10k" V 6850 3300 50  0000 C CNN
+F 2 "Resistors_SMD:R_1206_HandSoldering" V 6780 3300 50  0001 C CNN
+F 3 "" H 6850 3300 50  0001 C CNN
+	1    6850 3300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6500 3350 6650 3350
+Wire Wire Line
+	6650 3350 6650 3400
+Wire Wire Line
+	6650 3400 6750 3400
+Wire Wire Line
+	6750 3400 6750 3450
+Wire Wire Line
+	6750 3750 6750 3900
+Wire Wire Line
+	6750 3900 6650 3900
+Connection ~ 6650 3900
+Wire Wire Line
+	6500 3250 6700 3250
+Wire Wire Line
+	6700 3250 6700 3300
+Wire Wire Line
+	7000 3300 7050 3300
+Connection ~ 7050 3300
+$Comp
+L CONN_02X03 J2
+U 1 1 594AA527
+P 6050 1350
+F 0 "J2" H 6050 1550 50  0000 C CNN
+F 1 "AUX_PINS" H 6050 1150 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x03_Pitch2.54mm" H 6050 150 50  0001 C CNN
+F 3 "" H 6050 150 50  0001 C CNN
+	1    6050 1350
+	1    0    0    -1  
+$EndComp
+Text GLabel 5550 1250 0    60   Input ~ 0
+3.3V
+Text GLabel 4500 2850 0    60   Input ~ 0
+ADC
+Text GLabel 4500 3000 0    60   Input ~ 0
+GPIO16
+Text GLabel 4600 3300 0    60   Input ~ 0
+GPIO13
+Text GLabel 7300 2800 2    60   Input ~ 0
+GPIO5
+Wire Wire Line
+	4500 2850 5300 2850
+Wire Wire Line
+	4500 3000 4700 3000
+Wire Wire Line
+	4700 3000 4700 3050
+Wire Wire Line
+	4700 3050 5300 3050
+Wire Wire Line
+	4600 3300 4650 3300
+Wire Wire Line
+	4650 3300 4650 3350
+Wire Wire Line
+	4650 3350 5300 3350
+Wire Wire Line
+	6500 2950 6800 2950
+Wire Wire Line
+	6800 2950 6800 2900
+Wire Wire Line
+	6800 2900 7250 2900
+Wire Wire Line
+	7250 2900 7250 2800
+Wire Wire Line
+	7250 2800 7300 2800
+$Comp
+L GND #PWR010
+U 1 1 594AAB1C
+P 6500 1550
+F 0 "#PWR010" H 6500 1300 50  0001 C CNN
+F 1 "GND" H 6500 1400 50  0000 C CNN
+F 2 "" H 6500 1550 50  0001 C CNN
+F 3 "" H 6500 1550 50  0001 C CNN
+	1    6500 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6300 1450 6500 1450
+Wire Wire Line
+	6500 1450 6500 1550
+Text GLabel 5550 1450 0    60   Input ~ 0
+GPIO5
+Text GLabel 5550 1600 0    60   Input ~ 0
+GPIO16
+Text GLabel 6650 1200 2    60   Input ~ 0
+GPIO13
+Text GLabel 6650 1350 2    60   Input ~ 0
+ADC
+Wire Wire Line
+	5550 1250 5800 1250
+Wire Wire Line
+	5550 1450 5550 1350
+Wire Wire Line
+	5550 1350 5800 1350
+Wire Wire Line
+	5800 1450 5800 1600
+Wire Wire Line
+	5800 1600 5550 1600
+Wire Wire Line
+	6300 1350 6650 1350
+Wire Wire Line
+	6300 1250 6500 1250
+Wire Wire Line
+	6500 1250 6500 1200
+Wire Wire Line
+	6500 1200 6650 1200
+Text GLabel 8400 2250 0    60   Input ~ 0
+3.3V
+Wire Wire Line
+	8400 2250 8650 2250
+Wire Wire Line
+	8650 2250 8650 2200
 $EndSCHEMATC
