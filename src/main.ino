@@ -1,5 +1,4 @@
-#include <ESP8266WiFi.h>
-#include <PubSubClient.h>
+#include <ESPHelper.h>
 #include <DHT.h>
 #include <myNetworks.h>
 
@@ -12,25 +11,26 @@
 #define DEBUG 0
 #define CHECK_INTERVAL 300000
 
+netInfo homeNet = {.mqttHost = MQTT_BROKER,
+                   .mqttUser = "",
+                   .mqttPass = "",
+                   .mqttPort = 1883,
+                   .ssid = WIFI_SSID,
+                   .pass = WIFI_PASSWD
+                  };
+
+ESPHelper myESP( &homeNet );
+DHT dht( DHTPIN, DHTTYPE );
+
 // Connect to the WiFi
-const char *ssid     = WIFI_SSID;
-const char *password = WIFI_PASSWD;
-const char *mqtt_server = MQTT_BROKER;
 float temperature = 0;
 int humidity = 0;
 float moisture = 0.0;
 int onTime = 0;
 const char *irr01Topic = "/sensors/irr01";
 const char *sensorsTopic = "/sensors/info";
-volatile float freq = 0.0;
-volatile unsigned long pulseDuration;
-volatile unsigned long lastpulse;
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
-
-WiFiClient espClient;
-PubSubClient client( espClient );
-DHT dht( DHTPIN, DHTTYPE );
 
 void callback( char *topic, byte *payload, unsigned int length )
 {
@@ -50,33 +50,11 @@ void callback( char *topic, byte *payload, unsigned int length )
     Serial.println();
 }
 
-void reconnect()
-{
-    // Loop until we're reconnected
-    while ( !client.connected() ) {
-        yield();
-        Serial.print( "Attempting MQTT connection..." );
-
-        // Attempt to connect
-        if ( client.connect( "ESP8266 Irrig. Sensor." ) ) {
-            Serial.println( "connected" );
-            // ... and subscribe to topic
-            client.subscribe( irr01Topic );
-        } else {
-            Serial.print( "failed, rc=" );
-            Serial.print( client.state() );
-            Serial.println( " try again in 5 seconds" );
-            // Wait 5 seconds before retrying
-            delay( 5000 );
-        }
-    }
-}
-
 void collectData()
 {
     bool dht_ok = false;
     int readCount = 5;
-    moisture = freq;
+    moisture = 0;
     yield();
 
     while ( !dht_ok && readCount > 0 ) {
@@ -122,14 +100,19 @@ void sendData()
     }
 
     yield();
-    client.publish( sensorsTopic, message );
+    myESP.publish( sensorsTopic, message );
 }
 
 void irrigate( int seconds )
 {
+    char message[16];
     yield();
-    Serial.print( "Regant: " );
-    Serial.println( seconds );
+
+    if ( DEBUG ) {
+        Serial.print( "Regant: " );
+        Serial.println( seconds );
+    }
+
     digitalWrite( INFO_LED, HIGH );
     digitalWrite( WATER_VALVE, HIGH );
 
@@ -142,22 +125,18 @@ void irrigate( int seconds )
     digitalWrite( INFO_LED, LOW );
 }
 
-void _spdint()
-{
-    unsigned long time = micros();
-    pulseDuration = time - lastpulse;
-    lastpulse = time;
-}
-
 void setup()
 {
     yield();
     Serial.begin( 115200 );
-    attachInterrupt( GPIO_PIN, _spdint, RISING );
-    pulseDuration = 0;
     delay( 10 );
-    client.setServer( mqtt_server, 1883 );
-    client.setCallback( callback );
+    myESP.OTA_enable();
+    myESP.OTA_setPassword( OTA_PASSWD );
+    myESP.OTA_setHostnameWithVersion( "IRR01" );
+    myESP.addSubscription( irr01Topic );
+    myESP.begin();
+    myESP.setCallback(
+        callback ); //can only set callback after begin method. Calling before begin() will not set the callback (return false)
     yield();
     pinMode( INFO_LED, OUTPUT );
     pinMode( WATER_VALVE, OUTPUT );
@@ -175,62 +154,27 @@ void setup()
     Serial.println();
     Serial.println();
     Serial.print( "Connecting to " );
-    Serial.println( ssid );
-    WiFi.begin( ssid, password );
-
-    while ( WiFi.status() != WL_CONNECTED ) {
-        delay( 500 );
-        Serial.print( "." );
-    }
-
-    Serial.println( "" );
-    Serial.println( "WiFi connected" );
+    Serial.println( homeNet.ssid );
+    delay( 5000 );
     Serial.println( "IP address: " );
-    Serial.println( WiFi.localIP() );
+    Serial.println( myESP.getIP() );
     delay( 250 );
 
     // flash to indicate boot process.
-    for (int i = 0; i < 3; i++) {
-        digitalWrite(INFO_LED, HIGH);
-        delay(200);
-        digitalWrite(INFO_LED, LOW);
-        delay(200);
+    for ( int i = 0; i < 3; i++ ) {
+        digitalWrite( INFO_LED, HIGH );
+        delay( 200 );
+        digitalWrite( INFO_LED, LOW );
+        delay( 200 );
     }
+
     yield();
 }
 
 void loop()
 {
-    if ( !client.connected() ) {
-        reconnect();
-    }
-
     yield();
-    client.loop();
-
-    if ( ( micros() - lastpulse ) > 1000000 ) pulseDuration = 0;
-
-    freq =  1000000.0 / pulseDuration;
-
-    if ( pulseDuration > 0 ) {
-        yield();
-
-        if ( DEBUG ) {
-            Serial.print( ( int )freq );
-            Serial.println( " Hz" );
-            delay( 200 );
-        }
-    } else {
-        yield();
-
-        if ( DEBUG ) {
-            Serial.println( "No signal" );
-            delay( 200 );
-        }
-
-        freq = 0;
-    }
-
+    myESP.loop();
     currentMillis = millis();
 
     if ( ( unsigned long )( currentMillis - previousMillis ) > CHECK_INTERVAL ) {
